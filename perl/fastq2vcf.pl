@@ -2458,13 +2458,20 @@ for ($loop_count=1;$loop_count <=$no_of_files;$loop_count++)
 
 		&record_input_file_size ("$final_bam"); # At this stage final_bam isn't in results_all_folder
 		&record_output_file_size_no_mail("$output_gVCF_file");
+		
+		my $unix_cmd = "tabix -l $output_gVCF_file | grep -v 'chrUn' | wc -l";
+		my $chr_count = `$unix_cmd`;
+		unless ($chr_count >= 39){
+			print COMMAND_LOG "\n  gVCF file contains $chr_count chromosomes\n\n";
+			&send_email_err_alert($0,$unix_cmd)
+		}
+		
 
 		##############################################
 		# Move gVCF file to results folder           #
 		##############################################
 		&move_to_results_all_folder ("$output_gVCF_file");
 		&move_to_results_all_folder ("$output_gVCF_file_idx");
-
 		&print_message("File $loop_count/$no_of_files   Step 14a: gVCF file has been made....","message");
 
 		#################################
