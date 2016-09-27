@@ -10,5 +10,11 @@ echo Starting NGS Pipeline for $SAMPLE...
 
 cd $RESULTS/$SAMPLE
 
+if [ ! -e logs ]
+then
+	mkdir logs
+fi
+
 ## Convert chunked FASTQ files to aligned SAM files...
-qsub -V -t 1-3 -N $SAMPLE.fastq2sam $PIPELINE_HOME/step1-fastq2sam.sh $SAMPLE
+step1=`qsub -V -t 1-3 -N ${SAMPLE}.fastq2sam $PIPELINE_HOME/step1-fastq2sam.sh $SAMPLE`
+step2=`qsub -V -t 1-3 -W depend=afterok:$step1 -N ${SAMPLE}.bamEdit $PIPELINE_HOME/step2-bamEdit.sh $SAMPLE`
