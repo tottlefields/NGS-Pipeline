@@ -14,14 +14,6 @@ SAMPLE=$1
 ID=$(printf "%03d\n" $SGE_TASK_ID)
 
 
-#Check to see that bam file genereated in step 1 in >50MB
-bam_size=$(wc -c <" ${SAMPLE}_${ID}.bam")
-if [ $bam_size -le 50000000 ]
-then
-	rm - rf ${SAMPLE}_${ID}.sam
-fi
-
-
 samtools view -b -S -o ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam
 picard AddOrReplaceReadGroups I=${SAMPLE}_${ID}.bam O=RG_${SAMPLE}_${ID}.bam RGID=${SAMPLE} RGLB=canfam3 RGPL='ILLUMINA' RGPU=${SAMPLE} RGSM=${SAMPLE} 
 picard ValidateSamFile I=RG_${SAMPLE}_${ID}.bam O=VAL_${SAMPLE}_${ID}.out MODE=SUMMARY
