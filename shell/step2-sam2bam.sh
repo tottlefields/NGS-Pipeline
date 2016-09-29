@@ -2,6 +2,7 @@
 
 #$ -b y
 #$ -cwd
+#$ -l h_vmem=2.5G
 #$ -o logs/sam2bam.$TASK_ID.out
 #$ -e logs/sam2bam.$TASK_ID.err
 
@@ -27,5 +28,5 @@ fi
 
 
 # samtools view -b -S -o BC_29772_aligned_003.bam BC_29772_aligned_003.sam
-# picard AddOrReplaceReadGroups I=BC_29772_aligned_003.bam O=RG_BC_29772_003.bam RGID=BC_29772 RGLB=canfam3 RGPL='ILLUMINA' RGPU=BC_29772 RGSM=BC_29772 
+# picard AddOrReplaceReadGroups I=BC_29772_003.bam O=RG_BC_29772_003.bam RGID=BC_29772 RGLB=canfam3 RGPL='ILLUMINA' RGPU=BC_29772 RGSM=BC_29772 
 # picard ValidateSamFiles I=RG_BC_29772_003.bam O=VAL_BC_29772_003.out MODE=SUMMARY
