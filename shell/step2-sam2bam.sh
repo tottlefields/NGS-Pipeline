@@ -15,7 +15,10 @@ SAMPLE=$1
 ID=$(printf "%03d\n" $SGE_TASK_ID)
 
 
-samtools view -b -S -o ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam
+if [ -f ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam && ! -f ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam ]; then
+	samtools view -b -S -o ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam
+fi
+
 picard AddOrReplaceReadGroups I=${SAMPLE}_${ID}.bam O=RG_${SAMPLE}_${ID}.bam RGID=${SAMPLE} RGLB=canfam3 RGPL='ILLUMINA' RGPU=${SAMPLE} RGSM=${SAMPLE} 
 picard ValidateSamFile I=RG_${SAMPLE}_${ID}.bam O=VAL_${SAMPLE}_${ID}.out MODE=SUMMARY
 
