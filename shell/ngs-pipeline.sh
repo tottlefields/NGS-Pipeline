@@ -1,9 +1,10 @@
 #!/bin/bash
 
-export CF3=$HOME/canfam3
+export CF3=$HOME/canfam3/ensembl
 export RESULTS=$HOME/fastq2vcf_runs
 export UPLOADS=$HOME/uploads
 export PIPELINE_HOME=$HOME/git/NGS-Pipeline/shell
+export ENSEMBL=86
 SAMPLE=$1
 
 echo Starting NGS Pipeline for $SAMPLE...
