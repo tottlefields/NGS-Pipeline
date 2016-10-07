@@ -5,6 +5,7 @@ export RESULTS=$HOME/fastq2vcf_runs
 export UPLOADS=$HOME/uploads
 export PIPELINE_HOME=$HOME/git/NGS-Pipeline/shell
 export ENSEMBL=86
+export PICARD_JAVA_OPTS=' -Xmx4g -Djava.io.tmpdir=~/javatmpdir'
 SAMPLE=$1
 
 echo Starting NGS Pipeline for $SAMPLE...

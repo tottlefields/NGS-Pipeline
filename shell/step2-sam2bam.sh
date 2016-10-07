@@ -14,9 +14,6 @@ module add apps/samtools
 SAMPLE=$1
 ID=$(printf "%03d\n" $SGE_TASK_ID)
 
-export PICARD_JAVA_OPTS=' -Xmx4g -Djava.io.tmpdir=~/javatmpdir'
-
-
 if [ -f ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam ]; then
 	samtools view -b -S -o ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam
 fi
