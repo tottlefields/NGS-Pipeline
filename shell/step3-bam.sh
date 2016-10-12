@@ -11,6 +11,8 @@ module load apps/samtools
 module add apps/picard
 module add apps/samtools
 
-samtools merge ${SAMPLE}.raw.bam ${SAMPLE}_*.bam
+SAMPLE=$1
+
+samtools merge ${SAMPLE}.raw.bam RG_${SAMPLE}_*.bam
 picard SortSam I=${SAMPLE}.raw.bam O=${SAMPLE}.sorted.bam SORT_ORDER=coordinate
 picard MarkDuplicates I=${SAMPLE}.sorted.bam O=${SAMPLE}.bam VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true M=MarkDuplicates_metrics.out
