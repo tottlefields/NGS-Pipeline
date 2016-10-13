@@ -7,6 +7,8 @@ export PIPELINE_HOME=$HOME/git/NGS-Pipeline/shell
 export ENSEMBL=86
 export PICARD_JAVA_OPTS=' -Xmx4g -Djava.io.tmpdir=${HOME}/javatmpdir'
 export FQ_COUNT=3
+export DELETE_FILES=true
+export PCR_FREE=true
 SAMPLE=$1
 
 echo Starting NGS Pipeline for $SAMPLE...
@@ -20,7 +22,7 @@ fi
 
 ## Convert chunked FASTQ files to aligned SAM files...
 qsub -V -t 1-${FQ_COUNT} -N ${SAMPLE}.fastq2sam ${PIPELINE_HOME}/step1-fastq2sam.sh ${SAMPLE}
-qsub -V -t 1-${FQ_COUNT} -hold_jid ${SAMPLE}.fastq2sam -N ${SAMPLE}.sam2bam ${PIPELINE_HOME}/step2-sam2bam.sh ${SAMPLE}
+qsub -V -t 1-${FQ_COUNT} -hold_jid_ad ${SAMPLE}.fastq2sam -N ${SAMPLE}.sam2bam ${PIPELINE_HOME}/step2-sam2bam.sh ${SAMPLE}
 
 qsub -V -hold_jid ${SAMPLE}.sam2bam -N ${SAMPLE}.bam ${PIPELINE_HOME}/step3-bam.sh ${SAMPLE}
 
