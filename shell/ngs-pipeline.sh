@@ -7,6 +7,8 @@ export PIPELINE_HOME=$HOME/git/NGS-Pipeline/shell
 export ENSEMBL=86
 export PICARD_JAVA_OPTS=' -Xmx4g -Djava.io.tmpdir=${HOME}/javatmpdir'
 export FQ_COUNT=3
+export DELETE_FILES=true
+export PCR_FREE=true
 SAMPLE=$1
 
 echo Starting NGS Pipeline for $SAMPLE...
