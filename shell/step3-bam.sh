@@ -28,7 +28,7 @@ picard SortSam I=${SAMPLE}.raw.bam O=${SAMPLE}.sorted.bam SORT_ORDER=coordinate
 
 ### if size of the sorted bam file >= 10% of raw bam then delete file
 bam_size2=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam)
-if [ $bam_size2 -ge `expr ${bam_size1}/10` ]; then
+if [ $bam_size2 -ge $(( ${bam_size1}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam"
 	rm - rf ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam
 fi
@@ -38,7 +38,7 @@ picard MarkDuplicates I=${SAMPLE}.sorted.bam O=${SAMPLE}.bam VALIDATION_STRINGEN
 
 ### if size of the bam file >= 10% of sorted bam then delete file
 bam_size3=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.bam)
-if [ $bam_size3 -ge ` expr ${bam_size2}/10` ]; then
+if [ $bam_size3 -ge $(( ${bam_size2}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam"
 	rm - rf ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam
 fi
