@@ -5,11 +5,15 @@
 #$ -l h_vmem=8G
 #$ -o logs/bam.out
 #$ -e logs/bam.err
+#$ -m ae
+
+if [ $START_STEP -gt 3  ]; then
+	exit
+fi
 
 module load apps/picard
 module load apps/samtools
-module add apps/picard
-module add apps/samtools
+source ${RESULTS}/${SAMLPE}.cfg
 
 SAMPLE=$1
 
