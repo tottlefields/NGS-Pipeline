@@ -13,9 +13,10 @@ fi
 
 module load apps/picard
 module load apps/samtools
-source ${RESULTS}/${SAMPLE}.cfg
 
 SAMPLE=$1
+source ${RESULTS}/${SAMPLE}.cfg
+
 ID=$(printf "%03d\n" $SGE_TASK_ID)
 
 if [ -f ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam ]; then
