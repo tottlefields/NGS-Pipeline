@@ -20,7 +20,7 @@ samtools merge ${SAMPLE}.raw.bam RG_${SAMPLE}_*.bam
 bam_size1=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam)
 if [ $bam_size1 -ge 200000000 ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/RG_${SAMPLE}_*.bam"
-	rm - rf ${RESULTS}/${SAMPLE}/RG_${SAMPLE}_*.bam
+	rm -rf ${RESULTS}/${SAMPLE}/RG_${SAMPLE}_*.bam
 fi
 
 
@@ -30,7 +30,7 @@ picard SortSam I=${SAMPLE}.raw.bam O=${SAMPLE}.sorted.bam SORT_ORDER=coordinate
 bam_size2=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam)
 if [ $bam_size2 -ge $(( ${bam_size1}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam"
-	rm - rf ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam
+	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam
 fi
 
 
@@ -40,6 +40,6 @@ picard MarkDuplicates I=${SAMPLE}.sorted.bam O=${SAMPLE}.bam VALIDATION_STRINGEN
 bam_size3=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.bam)
 if [ $bam_size3 -ge $(( ${bam_size2}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam"
-	rm - rf ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam
+	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam
 fi
 
