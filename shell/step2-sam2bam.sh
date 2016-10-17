@@ -5,11 +5,15 @@
 #$ -l h_vmem=8G
 #$ -o logs/sam2bam.$TASK_ID.out
 #$ -e logs/sam2bam.$TASK_ID.err
+#$ -m ae
+
+if [ $START_STEP -gt 2  ]; then
+	exit
+fi
 
 module load apps/picard
 module load apps/samtools
-module add apps/picard
-module add apps/samtools
+source ${RESULTS}/${SAMLPE}.cfg
 
 SAMPLE=$1
 ID=$(printf "%03d\n" $SGE_TASK_ID)
