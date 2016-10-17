@@ -10,13 +10,13 @@ if [ "$#" -ge 2 ]; then
 fi
 export START_STEP=${STEP}
 
-if [ ! -f ${RESULTS}/${SAMLPE}.cfg ]; then
-	echo "You need to create a configuration file to run the NGS Pipeline for ${SAMPLE} - ${RESULTS}/${SAMLPE}.cfg"
+if [ ! -f ${RESULTS}/${SAMPLE}.cfg ]; then
+	echo "You need to create a configuration file to run the NGS Pipeline for ${SAMPLE} - ${RESULTS}/${SAMPLE}.cfg"
 	exit
 fi
 
 echo Starting NGS Pipeline for $SAMPLE...
-source ${RESULTS}/${SAMLPE}.cfg
+source ${RESULTS}/${SAMPLE}.cfg
 
 if [ ! -e $RESULTS/$SAMPLE ]; then
 	mkdir $RESULTS/$SAMPLE

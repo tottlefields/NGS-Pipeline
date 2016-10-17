@@ -13,7 +13,7 @@ fi
 
 module load apps/picard
 module load apps/samtools
-source ${RESULTS}/${SAMLPE}.cfg
+source ${RESULTS}/${SAMPLE}.cfg
 
 SAMPLE=$1
 
