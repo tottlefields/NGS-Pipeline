@@ -13,9 +13,9 @@ fi
 
 module load apps/picard
 module load apps/samtools
-source ${RESULTS}/${SAMPLE}.cfg
 
 SAMPLE=$1
+source ${RESULTS}/${SAMPLE}.cfg
 
 echo "Merging BAM files"
 samtools merge ${SAMPLE}.raw.bam RG_${SAMPLE}_*.bam

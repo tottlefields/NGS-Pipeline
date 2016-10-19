@@ -12,9 +12,10 @@ if [ $START_STEP -gt 1  ]; then
 fi
 
 module load apps/bwa
-source ${RESULTS}/${SAMPLE}.cfg
 
 SAMPLE=$1
+source ${RESULTS}/${SAMPLE}.cfg
+
 ID=$(printf "%03d\n" $SGE_TASK_ID)
 
 if [ ! -e ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam ]
