@@ -17,8 +17,11 @@ module load apps/samtools
 SAMPLE=$1
 source ${RESULTS}/${SAMPLE}.cfg
 
-echo "Merging BAM files"
-samtools merge ${SAMPLE}.raw.bam RG_${SAMPLE}_*.bam
+file_count=$(ls -1 RG_BC_29772_*.bam | wc -l)
+if [ $file_count -gt 0 ]; then
+	echo "Merging BAM files"
+	samtools merge ${SAMPLE}.raw.bam RG_${SAMPLE}_*.bam
+fi
 
 ### if size of the merged bam file >= 200MB then delete corresponding bam files
 bam_size1=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam)
@@ -35,10 +38,9 @@ bam_size2=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.sorted.bam)
 if [ $bam_size2 -ge $(( ${bam_size1}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam"
 	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.raw.bam
+	picard MarkDuplicates I=${SAMPLE}.sorted.bam O=${SAMPLE}.bam VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true M=MarkDuplicates_metrics.out
 fi
 
-
-picard MarkDuplicates I=${SAMPLE}.sorted.bam O=${SAMPLE}.bam VALIDATION_STRINGENCY=SILENT CREATE_INDEX=true M=MarkDuplicates_metrics.out
 
 ### if size of the bam file >= 10% of sorted bam then delete file
 bam_size3=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.bam)
