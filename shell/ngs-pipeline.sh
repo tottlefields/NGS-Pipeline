@@ -29,8 +29,14 @@ if [ ! -e logs ]; then
 fi
 
 ## Convert chunked FASTQ files to aligned SAM files...
-qsub -M ${EMAIL} -d ${RESULTS}/${SAMPLE} -V -t 1-${FQ_COUNT} -N ${SAMPLE}.fastq2sam ${PIPELINE_HOME}/step1-fastq2sam.sh ${SAMPLE}
-qsub -M ${EMAIL} -d ${RESULTS}/${SAMPLE} -V -t 1-${FQ_COUNT} -hold_jid_ad ${SAMPLE}.fastq2sam -N ${SAMPLE}.sam2bam ${PIPELINE_HOME}/step2-sam2bam.sh ${SAMPLE}
+##STEP 1
+qsub -M ${EMAIL} -V -t 1-${FQ_COUNT} -N ${SAMPLE}.fastq2sam ${PIPELINE_HOME}/step1-fastq2sam.sh ${SAMPLE}
 
-qsub -M ${EMAIL} -d ${RESULTS}/${SAMPLE} -V -hold_jid ${SAMPLE}.sam2bam -N ${SAMPLE}.bam ${PIPELINE_HOME}/step3-bam.sh ${SAMPLE}
+##STEP 2
+qsub -M ${EMAIL} -V -t 1-${FQ_COUNT} -hold_jid_ad ${SAMPLE}.fastq2sam -N ${SAMPLE}.sam2bam ${PIPELINE_HOME}/step2-sam2bam.sh ${SAMPLE}
 
+##STEP 3
+qsub -M ${EMAIL} -V -hold_jid ${SAMPLE}.sam2bam -N ${SAMPLE}.bam ${PIPELINE_HOME}/step3-bam.sh ${SAMPLE}
+
+##STEP 4
+#qsub -M ${EMAIL} -V -N ${SAMPLE}.indels ${PIPELINE_HOME}/step4-indels_clean.sh ${SAMPLE}
