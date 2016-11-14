@@ -26,7 +26,7 @@ fi
 ### if size of bam file >= 50M then delete corresponding sam file
 bam_size=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam)
 if [ $bam_size -ge 50000000 ]; then
-	rm - rf ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam
+	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.sam
 fi
 
 picard AddOrReplaceReadGroups I=${SAMPLE}_${ID}.bam O=RG_${SAMPLE}_${ID}.bam RGID=${SAMPLE} RGLB=canfam3 RGPL='ILLUMINA' RGPU=${SAMPLE} RGSM=${SAMPLE} 
@@ -35,7 +35,7 @@ picard ValidateSamFile I=RG_${SAMPLE}_${ID}.bam O=VAL_${SAMPLE}_${ID}.out MODE=S
 ### if size of RG_bam file >= 50M then delete corresponding bam file
 rg_bam_size=$(wc -c < ${RESULTS}/${SAMPLE}/RG_${SAMPLE}_${ID}.bam)
 if [ $rg_bam_size -ge 50000000 ]; then
-	rm - rf ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam
+	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}_${ID}.bam
 fi
 
 
