@@ -17,7 +17,7 @@ module load apps/samtools
 SAMPLE=$1
 source ${RESULTS}/${SAMPLE}.cfg
 
-file_count=$(ls -1 RG_BC_29772_*.bam | wc -l)
+file_count=$(ls -1 RG_${SAMPLE}_*.bam | wc -l)
 if [ $file_count -gt 0 ]; then
 	echo "Merging BAM files"
 	samtools merge ${SAMPLE}.raw.bam RG_${SAMPLE}_*.bam
