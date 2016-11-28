@@ -8,6 +8,6 @@ fi
 if [ -z "$n" ]; then
   echo "Usage: $0 <application> [<parameters>]"
 else
-  echo exec java `eval echo $GATK_JAVA_OPTS` -jar "${GATK_HOME}/GenomeAnalysisTK.jar" "$n" "$@"
+  exec java `eval echo $GATK_JAVA_OPTS` -jar "${GATK_HOME}/GenomeAnalysisTK.jar" "$n" "$@"
 fi
 exit 1
