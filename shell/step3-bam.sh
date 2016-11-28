@@ -2,7 +2,7 @@
 
 #$ -b y
 #$ -cwd
-#$ -l h_vmem=6G
+#$ -l h_vmem=8G
 #$ -o logs/bam.out
 #$ -e logs/bam.err
 #$ -m ae
