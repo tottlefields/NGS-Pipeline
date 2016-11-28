@@ -2,7 +2,7 @@
 
 #$ -b y
 #$ -cwd
-#$ -l h_vmem=6G
+#$ -l h_vmem=8G
 #$ -o logs/sam2bam.$TASK_ID.out
 #$ -e logs/sam2bam.$TASK_ID.err
 #$ -m ae
