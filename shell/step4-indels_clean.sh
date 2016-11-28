@@ -2,7 +2,7 @@
 
 #$ -b y
 #$ -cwd
-#$ -l h_vmem=6G
+#$ -l h_vmem=3G
 #$ -pe smp 6
 #$ -o logs/step4.out
 #$ -e logs/step4.err
