@@ -28,12 +28,13 @@ bam_size=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.bam)
 bam_size1=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.bam)
 if [ $bam_size1 -ge $(( ${bam_size}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.bam"
+	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.bai"
 	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.bam
 fi
 
 
 ##BaseRecalibrator
-gatk -T BaseRecalibrator -nct 6 -R ${CF3}/canfam3.fasta -i ${SAMPLE}.clean.bam -knownSites ${CF3}/canfam3_all_snps.vcf -o ${SAMPLE}.recal.grp -S LENIENT
+gatk -T BaseRecalibrator -nct 6 -R ${CF3}/canfam3.fasta -I ${SAMPLE}.clean.bam -knownSites ${CF3}/canfam3_all_snps.vcf -o ${SAMPLE}.recal.grp -S LENIENT
 
 ##PrintReads
 gatk -T PrintReads -nct 6 -R ${CF3}/canfam3.fasta -I ${SAMPLE}.clean.bam -BQSR ${SAMPLE}.recal.grp -o ${SAMPLE}.final.bam -S LENIENT
@@ -42,5 +43,6 @@ gatk -T PrintReads -nct 6 -R ${CF3}/canfam3.fasta -I ${SAMPLE}.clean.bam -BQSR $
 bam_size2=$(wc -c < ${RESULTS}/${SAMPLE}/${SAMPLE}.final.bam)
 if [ $bam_size1 -ge $(( ${bam_size1}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.bam"
+	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.bai"
 	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.bam
 fi
