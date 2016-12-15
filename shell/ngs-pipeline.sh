@@ -16,6 +16,7 @@ if [ ! -f ${RESULTS}/${SAMPLE}.cfg ]; then
 fi
 
 echo Starting NGS Pipeline for $SAMPLE...
+echo; echo NGS Pipeline started: `date`; echo
 source ${RESULTS}/${SAMPLE}.cfg
 
 if [ ! -e $RESULTS/$SAMPLE ]; then

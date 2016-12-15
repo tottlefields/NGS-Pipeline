@@ -45,4 +45,14 @@ if [ $bam_size1 -ge $(( ${bam_size1}/10 )) ]; then
 	echo "Deleting ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.ba*"
 	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.bam
 	rm -rf ${RESULTS}/${SAMPLE}/${SAMPLE}.clean.bai
+	
+	#Flagstat...
+	samtools flagstat ${RESULTS}/${SAMPLE}/${SAMPLE}.final.bam > ${RESULTS}/${SAMPLE}/${SAMPLE}.flagstat.out
+	grep '%' ${RESULTS}/${SAMPLE}/${SAMPLE}.flagstat.out | grep -v 'single'
+	
+	#Metrics
+	picard CollectWgsMetrics INPUT=${RESULTS}/${SAMPLE}/${SAMPLE}.final.bam OUTPUT=${RESULTS}/${SAMPLE}/${SAMPLE}.metrics.out REFERENCE_SEQUENCE=${CF3}/canfam3.fasta STOP_AFTER=100000000 VALIDATION_STRINGENCY=LENIENT
+	head -8 ${RESULTS}/${SAMPLE}/${SAMPLE}.metrics.out | tail -2 | cut -f 2,3,13-18
 fi
+
+echo; echo NGS Pipeline finished: `date`; echo
